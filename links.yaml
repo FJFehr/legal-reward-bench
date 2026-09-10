@@ -1,0 +1,40 @@
+# ============================================================================
+# LINKS CONFIGURATION
+# ============================================================================
+# arXiv / Code / Dataset resource links, shown as buttons in the hero.
+# Leave a link `null` until it's genuinely available -- the button then
+# renders as a disabled "coming soon" state rather than a guessed URL.
+# Parsed by static/js/yaml-lite.js and rendered by static/js/main.js.
+# ============================================================================
+
+# The paper is published as PMLR 306 (ICML 2026 proceedings), not (yet)
+# posted to arXiv -- left null rather than guessing an ID.
+arxiv: null # TODO: add arXiv URL if/when a preprint is posted
+
+# Confirmed canonical: the paper's own LaTeX "Code" badge points here.
+code: https://github.com/oxai/legal-reward-bench
+
+# From the paper's LaTeX "Benchmark" badge.
+dataset: https://huggingface.co/datasets/riltonfranzone/legal-reward-bench
+
+# Open Graph / Twitter card preview image path (1200x630). NOT auto-applied
+# to the <meta property="og:image">/<meta name="twitter:image"> tags in
+# index.html's <head> -- crawlers need those static, so keep both in sync
+# by hand if you change this.
+ogImage: static/images/og-image.png
+
+# One-sentence description for link previews (Slack/Twitter/LinkedIn/
+# Facebook cards) and search-result snippets. Same "NOT auto-applied"
+# situation as ogImage above, for the same reason: social-card scrapers
+# fetch the raw page HTML without running JavaScript, so this value here
+# is just the canonical draft to edit -- it has no on-page rendering of
+# its own to update automatically (unlike the paper title, which is at
+# least live-rendered into the visible <h1> by main.js from
+# static/js/theme.js). After changing this, copy it by hand into
+# index.html's <head>, all three:
+#   <meta name="description" content="...">
+#   <meta property="og:description" content="...">
+#   <meta name="twitter:description" content="...">
+# (meta name="description" can diverge slightly toward search-snippet
+# tone if you want; today all three use this exact sentence.)
+description: "LegalRewardBench: a legal contextual reward-modelling pipeline & benchmark for grounded, abstention-aware legal RAG evaluation."

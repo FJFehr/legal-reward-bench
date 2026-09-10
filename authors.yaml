@@ -1,0 +1,57 @@
+# ============================================================================
+# AUTHOR CONFIGURATION
+# ============================================================================
+# Edit this to add each author's personal site / Google Scholar / lab page
+# link. Names and order are taken verbatim from the paper -- do not reorder
+# them. Parsed by static/js/yaml-lite.js and rendered by static/js/main.js;
+# see README.md for the supported YAML subset.
+#
+# For each author:
+#   name:               exact display name as printed on the paper.
+#   url:                a personal site, lab page, or Google Scholar
+#                        profile. Leave as `null` until you have a real
+#                        URL -- the template renders `null` authors as
+#                        plain (non-clickable) text rather than invent a
+#                        destination. DO NOT put a real name on a guessed
+#                        or unrelated URL.
+#   equalContribution:   true for authors marked with * in the paper.
+#
+# The two equal-contribution authors are marked with "equal" in the paper's
+# own \icmlsetsymbol -- Rilton Franzone and Valentin Noël.
+#
+# KNOWN LIMITATION: the paper lists three distinct affiliations (University
+# of Oxford / Devoteam / OXAI), assigned per author via superscripts --
+# Valentin Noël is Devoteam-only, not Oxford. This template's data model
+# (below) supports only one shared `affiliation` line for the whole author
+# list, not per-author affiliation footnotes, so that distinction is lost
+# here. Flagging rather than silently dropping it -- worth deciding whether
+# to extend the template (a per-author `affiliation` field + footnote
+# rendering) or accept the simplification.
+# ============================================================================
+
+authors:
+  - name: Rilton Franzone
+    url: https://www.riltonfranzone.com/
+    equalContribution: true
+  - name: Valentin Noël
+    url: https://scholar.google.com/citations?user=aKSfszkAAAAJ&hl=fr
+    equalContribution: true
+  - name: Puyu Wang
+    url: https://puyuwang.org/
+    equalContribution: false
+  - name: Philip Torr
+    url: https://scholar.google.com/citations?user=kPxa2w0AAAAJ&hl=en
+    equalContribution: false
+  - name: Fabio J. Fehr
+    url: https://fjfehr.github.io/
+    equalContribution: false
+
+# See "KNOWN LIMITATION" above -- this line represents Oxford/OXAI only;
+# Valentin Noël's Devoteam affiliation isn't separately expressed.
+affiliation:
+  institution: University of Oxford
+  groupName: OXAI
+
+correspondence:
+  name: Fabio J. Fehr
+  email: fabio.fehr@oxai.org
