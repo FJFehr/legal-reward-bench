@@ -138,25 +138,20 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
 <meta name="description" content="LegalRewardBench: a legal contextual reward-modelling benchmark for grounded, abstention-aware legal RAG evaluation.">
 
 <!-- Canonical URL -->
-<!-- TODO: set once the deployed Pages URL is confirmed -- the GitHub org/
-     user for this repo is still unsettled (this repo's git remote is
-     FJFehr/legal-reward-bench, but the confirmed Code link points at
-     github.com/oxai/legal-reward-bench; the Pages URL depends on which
-     account actually hosts it). -->
-<link rel="canonical" href="TODO">
+<!-- Deployed via GitHub Pages from FJFehr/legal-reward-bench (this repo's
+     actual remote) on 2026-09-10. Note this differs from the Code button's
+     target (github.com/oxai/legal-reward-bench, per links.yaml) -- that's
+     a deliberate divergence confirmed earlier (source-code pointer vs.
+     site hosting), not an oversight. -->
+<link rel="canonical" href="https://fjfehr.github.io/legal-reward-bench/">
 
 <!-- OpenGraph -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="Building Legal Reward Models for Grounding and Abstention">
 <!-- See the comment on meta name="description" above -- same source (links.yaml's `description`), same manual-copy requirement. -->
 <meta property="og:description" content="LegalRewardBench: a legal contextual reward-modelling benchmark for grounded, abstention-aware legal RAG evaluation.">
-<!-- The image itself (static/images/og-image.png, 1200x630) is ready --
-     TODO is only the domain: og:image wants an absolute URL (some
-     crawlers, Facebook's in particular, won't resolve a relative one), so
-     replace this with "<canonical URL above>static/images/og-image.png"
-     once that's confirmed. -->
-<meta property="og:image" content="TODO — static/images/og-image.png, prefixed with the canonical URL above once confirmed">
-<meta property="og:url" content="TODO">
+<meta property="og:image" content="https://fjfehr.github.io/legal-reward-bench/static/images/og-image.png">
+<meta property="og:url" content="https://fjfehr.github.io/legal-reward-bench/">
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Building Legal Reward Models for Grounding and Abstention">
@@ -176,10 +171,14 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
 <meta name="citation_volume" content="306">
 <!-- No exact citation_publication_date given in the PDF beyond "2026" --
      do not invent a full date. -->
-<!-- TODO: set citation_pdf_url once a canonical PDF (arXiv or otherwise) is live. -->
+<!-- TODO: set citation_pdf_url once arXiv is live -- a copy is already
+     committed at Legal_Reward_Modelling/paper.pdf (so technically already
+     hosted, at https://fjfehr.github.io/legal-reward-bench/Legal_Reward_Modelling/paper.pdf),
+     but deliberately not wired up here: the arXiv preprint is the intended
+     primary citation (see citation.bib's own placeholder note), and
+     pointing Scholar at this local copy first would work against that. -->
 <!-- <meta name="citation_pdf_url" content="TODO"> -->
-<!-- TODO: set once this page has a canonical deployed URL -->
-<!-- <meta name="citation_abstract_html_url" content="TODO"> -->
+<meta name="citation_abstract_html_url" content="https://fjfehr.github.io/legal-reward-bench/">
 <meta name="citation_keywords" content="legal AI, reward modelling, retrieval-augmented generation, RAG, grounded generation, abstention, RLHF, DPO, contextual evaluation, legal NLP">
 
 <style>

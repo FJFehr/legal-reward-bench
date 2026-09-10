@@ -12,30 +12,30 @@ everything you'd actually want to edit — prose, figures, authors, links,
 citation, table rows — lives in separate content files that get loaded
 into it at page load. No compiling: edit a content file, save, refresh.
 
-## Porting status
+## Status
 
-The template's engine was ported first, content stripped to placeholders,
-then the structural/visual decisions were settled before writing real
-content — colour palette, canonical GitHub URL, table content, and site
-title are all resolved (see below). Still open: **the canonical hosting
-URL** — this repo's actual git remote is `FJFehr/legal-reward-bench`, but
-the confirmed Code link points at `github.com/oxai/legal-reward-bench`, so
-the GitHub Pages URL (and every `TODO`-marked canonical/`og:url`/
-`citation_abstract_html_url`/`og:image` value in `index.html`'s `<head>`)
-depends on which account ends up hosting it. Search `index.html` for
-`TODO` to find those. `static/images/og-image.png` (the 1200×630
-social-card preview) is generated (title, short name, authors, and
-Oxford/OXAI logos on the site's own palette) — its `og:image`/
-`twitter:image` meta tags just need the canonical domain prefixed once
-that's settled.
+Live at **https://fjfehr.github.io/legal-reward-bench/**, deployed via
+GitHub Pages from this repo's `main` branch (root), first pushed
+2026-09-10. All the structural/visual decisions from the porting process
+are resolved: colour palette uses the paper's own figure palette
+(gold/steel-blue/brown-orange, see `static/js/theme.js`); the Code button
+deliberately points at `github.com/oxai/legal-reward-bench` — different
+from this repo's own git remote (`FJFehr/legal-reward-bench`), a
+confirmed divergence between "where the site is hosted" and "where the
+code is presented as living," not an oversight; the Method section keeps
+a table of the paper's failure-type example pairs (Refusal / Faithfulness
+/ Correctness / Completeness); site title is the paper's own ("Building
+Legal Reward Models for Grounding and Abstention", short form
+"LegalRewardBench"). `static/images/og-image.png` (1200×630 social-card
+preview) is generated: title, authors, and the pipeline diagram, centred,
+on the site's own palette.
 
-Resolved decisions, for reference: colour palette uses the paper's own
-figure palette (gold/steel-blue/brown-orange, see `static/js/theme.js`);
-Code link is `github.com/oxai/legal-reward-bench`; the Method section
-keeps a table, showing the paper's failure-type example pairs (Refusal /
-Faithfulness / Correctness / Completeness); site title is the paper's own
-("Building Legal Reward Models for Grounding and Abstention", short form
-"LegalRewardBench").
+One deliberately-still-open TODO: `citation_pdf_url` in `index.html`'s
+`<head>`. `Legal_Reward_Modelling/paper.pdf` is committed (so technically
+already hosted), but arXiv is the intended primary citation (see
+`citation.bib`'s own placeholder note) — pointing Google Scholar at the
+local PDF first would work against that, so it's left unset until arXiv
+is live. Search `index.html` for `TODO` to find it.
 
 ## File structure
 
@@ -323,13 +323,17 @@ Any static file server works equally well (`npx serve`, etc.).
 
 ## How to deploy via GitHub Pages
 
-1. Push this repository to GitHub.
+Already done for this repo (see "Status" above) — Pages is enabled,
+serving from `main` at the root. For reference, or to redeploy elsewhere
+(a fork, an org transfer, etc.):
+
+1. Push the repository to GitHub.
 2. In the repo's **Settings → Pages**, set **Source** to "Deploy from a
-   branch", pick the branch (e.g. `main`) and the root (`/`) folder.
+   branch", pick the branch (e.g. `main`) and the root (`/`) folder. (Or,
+   equivalently: `gh api -X POST repos/<owner>/<repo>/pages -f
+   "source[branch]=main" -f "source[path]=/"`.)
 3. GitHub Pages serves `index.html` at
-   `https://<user>.github.io/<repo>/` (or your custom domain) — likely
-   `https://fjfehr.github.io/legal-reward-bench/` here, pending
-   confirmation of the canonical GitHub org/user for this repo.
-4. Once you have the deployed URL, fill in the `TODO`-marked canonical /
-   `og:url` / `citation_abstract_html_url` values in `index.html`'s
-   `<head>`.
+   `https://<user-or-org>.github.io/<repo>/` (or a custom domain).
+4. If the URL changed, update the canonical / `og:url` /
+   `og:image` / `citation_abstract_html_url` values in `index.html`'s
+   `<head>` to match.
