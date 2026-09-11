@@ -216,5 +216,5 @@ We test whether reward models trained primarily on Victorian criminal law genera
 An earlier version of this work was presented at the AI for Law Workshop @ ICML 2026
 
 <!-- slot: footer-note -->
-Build your own pretty project pages [**paper-page**](https://github.com/FJFehr/paper-page) and grabbing GIFs! [**gifit2me**](https://github.com/FJFehr/gifit2me).
+Build your own pretty project pages 💅 [**paper-page**](https://github.com/FJFehr/paper-page) and grab GIFs 🎬 [**gifit2me**](https://github.com/FJFehr/gifit2me).
 
