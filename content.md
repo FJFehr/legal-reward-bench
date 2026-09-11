@@ -216,5 +216,5 @@ We test whether reward models trained primarily on Victorian criminal law genera
 An earlier version of this work was presented at the AI for Law Workshop @ ICML 2026
 
 <!-- slot: footer-note -->
-Pipeline figures animated with [gifit2me](https://github.com/FJFehr/gifit2me). [Page source](https://github.com/FJFehr/legal-reward-bench).
+Want to make pretty project pages or diagram GIFs? Try the templates [**paper-page**](https://github.com/FJFehr/paper-page) & [**gifit2me**](https://github.com/FJFehr/gifit2me).
 
