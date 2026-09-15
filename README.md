@@ -30,12 +30,15 @@ Legal Reward Models for Grounding and Abstention", short form
 preview) is generated: title, authors, and the pipeline diagram, centred,
 on the site's own palette.
 
-One deliberately-still-open TODO: `citation_pdf_url` in `index.html`'s
-`<head>`. `Legal_Reward_Modelling/paper.pdf` is committed (so technically
-already hosted), but arXiv is the intended primary citation (see
-`citation.bib`'s own placeholder note) — pointing Google Scholar at the
-local PDF first would work against that, so it's left unset until arXiv
-is live. Search `index.html` for `TODO` to find it.
+The paper is on arXiv now (**[2609.14739](https://arxiv.org/abs/2609.14739)**,
+submitted 2026-09-13) — that's the primary citation (`citation.bib`,
+`links.yaml`'s `arxiv` link, `index.html`'s `citation_pdf_url`/
+`citation_arxiv_id`/`citation_publication_date` are all wired to it).
+`Legal_Reward_Modelling/paper.pdf` (the PMLR/ICML camera-ready) stays
+committed for reference but isn't cited from — deliberate, not an
+oversight. Only a DOI remains genuinely open; search `index.html` for
+`TODO` if one gets assigned later (e.g. via the ICML proceedings or a
+Zenodo archive).
 
 ## File structure
 
@@ -204,12 +207,10 @@ without breaking what these tags are for.
 **Citation (BibTeX)** — edit `citation.bib`, a real, standalone `.bib`
 file. It's fetched as plain text and dropped straight into the page's
 citation block — no parsing, so anything valid there renders as-is.
-Currently a placeholder pending the arXiv preprint (the intended primary
-citation) — update it once that's posted. The note shown just above the
-citation block (`content.md`'s `bibtex-note` slot) currently flags that
-an earlier version was presented at the AI for Law Workshop @ ICML 2026,
-linking to its OpenReview page — update or remove that note once the
-arXiv BibTeX is live.
+Now a real arXiv entry (`eprint`/`archivePrefix`/`primaryClass`/`url` for
+2609.14739) rather than a placeholder. The note shown just above the
+citation block (`content.md`'s `bibtex-note` slot) mentions that an
+earlier version was presented at the AI for Law Workshop @ ICML 2026.
 
 `authors.yaml` and `links.yaml` are parsed by `static/js/yaml-lite.js`, a
 small hand-rolled parser supporting a **restricted YAML subset** (not full

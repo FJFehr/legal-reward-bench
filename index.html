@@ -54,11 +54,11 @@ why:
     meta tags below are static HTML on purpose -- citation indexers and
     most social-card scrapers do not execute JavaScript, so these values
     must be readable without it. If you change the title (static/js/theme.js),
-    authors (authors.yaml), or add a DOI/arXiv ID/publication date, update
-    BOTH the meta tags below AND those files so the rendered page and the
-    metadata agree. Search this file for "TODO" to find every place a
-    real value is still needed (canonical URL, OG image absolute URL,
-    citation_pdf_url once arXiv is live, citation_publication_date, DOI).
+    authors (authors.yaml), or the arXiv ID/publication date, update BOTH
+    the meta tags below AND those files so the rendered page and the
+    metadata agree. Only a DOI remains genuinely unresolved (search this
+    file for "TODO" if that's assigned later -- e.g. by the ICML
+    proceedings or a Zenodo archive).
 
   - The <h1> paper title and the nav wordmark are rendered by main.js
     from static/js/theme.js (THEME.title), same as the rest of the page's
@@ -169,15 +169,15 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
 <meta name="citation_conference_title" content="Proceedings of the 43rd International Conference on Machine Learning">
 <meta name="citation_publisher" content="PMLR">
 <meta name="citation_volume" content="306">
-<!-- No exact citation_publication_date given in the PDF beyond "2026" --
-     do not invent a full date. -->
-<!-- TODO: set citation_pdf_url once arXiv is live -- a copy is already
-     committed at Legal_Reward_Modelling/paper.pdf (so technically already
-     hosted, at https://fjfehr.github.io/legal-reward-bench/Legal_Reward_Modelling/paper.pdf),
-     but deliberately not wired up here: the arXiv preprint is the intended
-     primary citation (see citation.bib's own placeholder note), and
-     pointing Scholar at this local copy first would work against that. -->
-<!-- <meta name="citation_pdf_url" content="TODO"> -->
+<!-- arXiv:2609.14739 (submitted 2026-09-13, primary cs.CL, cross-list
+     cs.AI) is now the primary citation -- verified against the live arXiv
+     listing (title/author order match exactly). citation_pdf_url points
+     there rather than at Legal_Reward_Modelling/paper.pdf, which is also
+     technically hosted (at this same domain) but was always the
+     PMLR/ICML camera-ready, not the intended primary citation. -->
+<meta name="citation_publication_date" content="2026/09/13">
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2609.14739">
+<meta name="citation_arxiv_id" content="2609.14739">
 <meta name="citation_abstract_html_url" content="https://fjfehr.github.io/legal-reward-bench/">
 <meta name="citation_keywords" content="legal AI, reward modelling, retrieval-augmented generation, RAG, grounded generation, abstention, RLHF, DPO, contextual evaluation, legal NLP">
 

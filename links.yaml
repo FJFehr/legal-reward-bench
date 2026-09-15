@@ -7,9 +7,10 @@
 # Parsed by static/js/yaml-lite.js and rendered by static/js/main.js.
 # ============================================================================
 
-# The paper is published as PMLR 306 (ICML 2026 proceedings), not (yet)
-# posted to arXiv -- left null rather than guessing an ID.
-arxiv: null # TODO: add arXiv URL if/when a preprint is posted
+# Also published as PMLR 306 (ICML 2026 proceedings) -- this is the
+# intended primary citation though (see citation.bib). Submitted
+# 2026-09-13, primary category cs.CL, cross-listed cs.AI.
+arxiv: https://arxiv.org/abs/2609.14739
 
 # Confirmed canonical: the paper's own LaTeX "Code" badge points here.
 code: https://github.com/oxai/legal-reward-bench
