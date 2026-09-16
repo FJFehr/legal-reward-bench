@@ -174,9 +174,6 @@ Rather than manually corrupting reference answers, we let failure modes emerge n
 Representative examples of the four preference dimensions, showing a **preferred** and **rejected** response for refusal, faithfulness, correctness, and completeness.
 <!-- section: results -->
 
-<!-- slot: results-title -->
-## Results
-
 <!-- slot: finding-2-title -->
 ### Preference-Data Construction Matters
 
