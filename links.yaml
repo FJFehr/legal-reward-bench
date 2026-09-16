@@ -38,4 +38,4 @@ ogImage: static/images/og-image.png
 #   <meta name="twitter:description" content="...">
 # (meta name="description" can diverge slightly toward search-snippet
 # tone if you want; today all three use this exact sentence.)
-description: "LegalRewardBench: a legal contextual reward-modelling pipeline & benchmark for grounded, abstention-aware legal RAG evaluation."
+description: "Legal AI should answer from the evidence it's given, and abstain when that evidence isn't enough. We find that preference-data construction matters, and that grounding can transfer across legal jurisdictions."
