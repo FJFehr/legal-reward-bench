@@ -696,6 +696,7 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
   }
   .finding figure { max-width: var(--prose-width); margin: 1.4em auto; }
   .finding figcaption { font-size: 0.85rem; color: var(--color-text-muted); margin-top: 0.5em; }
+  .colour-swatch { font-weight: 600; }
   /* Highlighted pull-out box. Currently unused -- the one finding that had
      one has been removed -- but kept as a reusable piece of this template:
      add <div class="stat-callout" data-md="some-slot"></div> anywhere and
@@ -1102,8 +1103,11 @@ See README.md for the full editing + local-preview + GitHub Pages guide.
         <h3 id="finding-2-title" data-md="finding-2-title"></h3>
         <div class="prose" data-md="finding-2-body"></div>
         <figure>
-          <img data-md-img="finding-2b-image"
-               src="static/images/figure-lrb-spider.png"
+          <img data-md-img="finding-2b-image-light" class="theme-only-light"
+               src="static/images/spider_lrbv2_n4.svg"
+               alt="Radar chart comparing four Ministral-8B training conditions on LegalRewardBench. The length-balanced-augmentation condition (gold) forms the largest polygon on every dimension.">
+          <img data-md-img="finding-2b-image-dark" class="theme-only-dark"
+               src="static/images/spider_lrbv2_n4_dark.svg"
                alt="Radar chart comparing four Ministral-8B training conditions on LegalRewardBench. The length-balanced-augmentation condition (gold) forms the largest polygon on every dimension.">
           <figcaption data-md="finding-2b-caption"></figcaption>
         </figure>

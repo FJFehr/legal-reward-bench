@@ -69,10 +69,14 @@
   // Link substitution runs first so a URL's own characters (parens aside)
   // can't be mistaken for ** / * / ` markers; the resulting <a> tag has
   // none of those characters in it, so later substitutions can't corrupt
-  // it either.
+  // it either. The {{#RRGGBB|label}} swatch syntax runs alongside it, for
+  // the rare case (e.g. a figure-legend caption) where prose needs to name
+  // a series in that series' own plot colour -- {, }, # and | all survive
+  // escapeHtml untouched, so this is safe to match on the escaped string.
   function mdInline(text) {
     let s = escapeHtml(text);
     s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    s = s.replace(/\{\{(#[0-9a-fA-F]{6})\|([^}]+)\}\}/g, '<span class="colour-swatch" style="color:$1">$2</span>');
     s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
     s = s.replace(/\*(.+?)\*/g, "<em>$1</em>");
     s = s.replace(/`(.+?)`/g, "<code>$1</code>");

@@ -34,6 +34,12 @@ to two further optional lines, in either order:
   "width: NN%" — shrinks the figure to that fraction of the page's usual
     prose width, still centred (unset = full prose width).
 
+Any slot's prose can also colour a short label to match a series in a
+nearby chart, e.g. a figure caption naming its legend: {{#RRGGBB|label}}
+renders label in that exact hex colour (see finding-2b-caption for a
+worked example against static/images/colours.txt). Use it sparingly --
+it's for matching a plot's own colours, not general text styling.
+
 ORDER: the page follows this file. There is a second kind of marker,
 written like a slot marker but saying "section:" instead, before each
 top-level section. Move one of those markers — together with everything
@@ -97,13 +103,13 @@ index.html's Key Takeaways section for the takeaway-1 anchor's href.
 <!-- section: overview -->
 
 <!-- slot: tldr -->
-**TL;DR.** Reward models for retrieval-augmented legal QA are usually optimised for fluency and helpfulness, not for whether an answer is actually grounded in the retrieved evidence — or for recognising when the evidence is insufficient and the model should simply abstain. We introduce **LegalRewardBench (LRB)**, a 1,220-pair legal contextual reward-modelling benchmark built from Victorian Criminal Charge Book QA, and benchmark 15 open-weight reward models (0.5B–9B) on it alongside ContextualJudgeBench (CJB). Contextual DPO refinement improves grounded legal evaluation by up to **+25.6pp** over baseline reward models, and models trained mainly on Victorian criminal law transfer to external US legal benchmarks, improving Housing Statute QA by **+16.2pp**.
+**TL;DR.** Legal AI should answer from the evidence it is given and abstain when that evidence is insufficient. We introduce **LEGALREWARDBENCH** and a general framework for turning legal question answering data into contextual preference pairs. We find that **preference-data construction matters**, with length balancing improving grounded legal evaluation and evidence that **contextual grounding can transfer across legal jurisdictions**.
 
 <!-- slot: problem-title -->
 ## From Legal QA to Preference Pairs
 
 <!-- slot: problem-caption -->
-Legal preference-pair construction pipeline. Starting from Legal RAG Bench triples (gold passage, question, answer), we build six retrieved-context variants to control answerability and retrieval noise, generate candidate responses with four open-weight LLMs, label them along four contextual dimensions with a judge models, then apply a hierarchical preference rule to produce contextual preference pairs for reward-model training and evaluation.
+**Legal preference-pair construction framework.** Starting from Legal RAG Bench triples (gold passage, question, answer), we construct retrieved-context variants to control answerability and retrieval noise, generate candidate responses with open-weight LLMs, label them along four contextual dimensions with judge models, and apply a preference rule to produce contextual preference pairs for reward-model training and evaluation.
 
 <!-- slot: problem-image-light -->
 ![Animated pipeline diagram: a source dataset of gold passage, question, and answer triples flows into context construction (answerable contexts with gold passage plus distractors, or unanswerable contexts with only distractors), then answer generation by four LLMs (DeepSeek-3.2, Qwen-3, Mistral-3, GLM-5), then response annotation by a GPT-OSS-120B judge scoring answered/faithful/correct/complete, and finally preference-pair construction producing a preferred and a rejected response.](static/images/legal-reward-pipeline.gif)
@@ -112,37 +118,37 @@ Legal preference-pair construction pipeline. Starting from Legal RAG Bench tripl
 ![Animated pipeline diagram: a source dataset of gold passage, question, and answer triples flows into context construction (answerable contexts with gold passage plus distractors, or unanswerable contexts with only distractors), then answer generation by four LLMs (DeepSeek-3.2, Qwen-3, Mistral-3, GLM-5), then response annotation by a GPT-OSS-120B judge scoring answered/faithful/correct/complete, and finally preference-pair construction producing a preferred and a rejected response.](static/images/legal-reward-pipeline-dark.gif)
 
 <!-- slot: takeaways-title -->
-## Key Takeaways
+## Takeaways
 
 <!-- slot: takeaway-1 -->
-**Grounded Legal Reward Models.** Legal AI needs retrieval-augmented grounding *and* reward models that actually reward it — so we built LegalRewardBench (LRB) and the pipeline used to create it.
+**A Framework and Benchmark for Grounded Legal Reward Modelling** We introduce LEGALREWARDBENCH alongside a general framework for transforming existing legal question answering datasets into contextual preference data under noisy and insufficient retrieval.
 
 <!-- slot: takeaway-2 -->
-**Sensitive to Reward-Hacking.** Naive preference data lets reward models exploit response-length shortcuts instead of learning to ground; length-balanced augmentation closes that gap and lets contextual DPO refinement deliver its full value.
+**Preference-Data Construction Matters.** Naturally generated preference pairs can contain systematic response-length asymmetries. Length-balanced augmentation reduces these artefacts and improves grounded legal evaluation.
 
 <!-- slot: takeaway-3 -->
-**Cross-Jurisdiction Generalisation.** Reward models trained mainly on Victorian criminal law still improve grounded evaluation on external US legal benchmarks, gaining up to +16.2pp on Housing Statute QA.
+**Cross-Jurisdiction Generalisation.** Models refined primarily on Victorian criminal law improve grounded evaluation on two external US legal benchmarks, providing evidence that contextual grounding can transfer beyond the source jurisdiction.
 
 
 <!-- section: method -->
 
 <!-- slot: method-title -->
-## Methodology
+## A Framework for Grounded Legal Reward Modelling
 
 <!-- slot: method-intro -->
 
-Grounded legal generation needs two things working together: retrieval-augmented generation (RAG) to supply the statutes, case law, and other evidence a response should be based on, and a reward model that can actually tell whether a response uses that evidence faithfully — or should abstain when the evidence is insufficient. Existing reward models are trained on general-purpose preference data that rewards helpfulness and fluency, not grounding, so they transfer poorly to this setting. We address this by introducing **LegalRewardBench (LRB)**: a 1,220-pair contextual reward-modelling benchmark converting legal QA triples into structured preference pairs that capture refusal, faithfulness, correctness, and completeness, and benchmark 15 open-weight reward models (0.5B–9B) on it. The pipeline below has four stages: context construction, answer generation, response annotation, and preference-pair construction.
+We introduce **LEGALREWARDBENCH (LRB)** alongside a general framework for transforming existing legal question answering datasets into contextual preference data. The framework constructs noisy and insufficient retrieval contexts, generates candidate responses, evaluates their grounding, and converts them into preference pairs for reward-model training and evaluation.
 
 <!-- slot: method-validation-title -->
 
-### Source Dataset
+### LEGALREWARDBENCH
 
 <!-- slot: method-closing -->
 
-LegalRewardBench is built on **Legal RAG Bench**, which contains 100 expert-written questions over a corpus of 4,876 passages from the Victorian Criminal Charge Book. Each question is paired with a supporting passage and a long-form reference answer, and questions were designed to be lexically dissimilar from their supporting evidence — so the task tests semantic retrieval and grounded reasoning rather than keyword matching. LRB's 1,220 preference pairs split into 940 training, 124 development, and 156 test examples.
+LEGALREWARDBENCH is constructed from Legal RAG Bench, using 100 expert-written questions over 4,876 passages from the Victorian Criminal Charge Book. The resulting 1,220 contextual preference pairs cover answerable and unanswerable retrieval settings and are split into 940 training, 124 development, and 156 test examples
 
 <!-- slot: method-pipeline-title -->
-### Pipeline
+### From Legal QA to Preference Pairs
 
 <!-- slot: method-image-light -->
 
@@ -154,45 +160,48 @@ LegalRewardBench is built on **Legal RAG Bench**, which contains 100 expert-writ
 
 <!-- slot: method-figcaption -->
 
-For each source triple, six retrieved-context variants (three answerable, three unanswerable, varying the distractor source across random sampling, BM25, and Nomic semantic retrieval) test grounded answering under retrieval noise and abstention under insufficient evidence. Four open-weight LLMs (Qwen 3 32B, DeepSeek V3.2, GLM-5, Ministral 3 14B) generate candidate responses; GPT-OSS-120B labels each along answer behaviour, faithfulness, correctness, and completeness; a hierarchical rule then converts labelled responses into preference pairs.
+**Legal preference-pair construction framework.** Starting from Legal RAG Bench triples (gold passage, question, answer), we construct retrieved contexts, generate candidate responses with open-weight LLMs, and label them along four contextual dimensions using GPT-OSS-120B. We validate preference construction with three additional LLM judges, reaching **94.9% agreement on preference direction**, before constructing contextual preference pairs for training and evaluation.
 
 <!-- slot: method-pipeline-body -->
 
-Rather than manually corrupting a reference answer to build the rejected response, we let failure modes emerge from the model panel itself: a candidate may abstain, answer correctly, omit a material qualification, introduce an unsupported claim, or reach a conclusion contradicted by the retrieved passages. Within each (context, question) cell, every pair of labelled responses is compared under a hierarchy — answer behaviour, then faithfulness, then correctness, then completeness for answerable contexts (with the reverse priority, abstention preferred, for unanswerable ones). Applied to 100 questions and six retrieval variants, this yields 3,600 unordered comparisons, of which 1,220 produce a strict preference and become the benchmark.
+Rather than manually corrupting reference answers, we let failure modes emerge naturally from the model panel: responses may abstain, omit important qualifications, introduce unsupported claims, or reach incorrect conclusions. For answerable contexts, responses are compared by **answer behaviour, faithfulness, correctness, and completeness**. For unanswerable contexts, **abstention is preferred over an attempted answer**. Across 100 questions and six retrieval variants, this produces 1,220 strict preference pairs.
 
 <!-- slot: taxonomy-title -->
 ### Preference Pair Examples
 
 <!-- slot: taxonomy-intro -->
 
-Representative examples of the four failure types the benchmark targets — refusal, faithfulness, correctness, and completeness — each showing a preferred response alongside the rejected response it's compared against.
-
+Representative examples of the four preference dimensions, showing a **preferred** and **rejected** response for refusal, faithfulness, correctness, and completeness.
 <!-- section: results -->
 
 <!-- slot: results-title -->
 ## Results
 
 <!-- slot: finding-2-title -->
-### Sensitive to Reward-Hacking
+### Preference-Data Construction Matters
 
 <!-- slot: finding-2-body -->
-Evaluating 14 open-weight instruction-tuned models plus specialist reward models on ContextualJudgeBench, overall performance remains only marginally above random chance, with no baseline consistently outperforming the others across grounding dimensions. Most models show a strong preference for shorter responses — high conciseness accuracy, but substantially weaker completeness and refusal behaviour. Among the baselines, Ministral-8B achieves the strongest balance across faithfulness, completeness, and refusal despite its modest scale. Contextual DPO refinement on top of it improves grounded evaluation across dimensions, particularly refusal behaviour under insufficient retrieval conditions — DPO adds real value when the underlying preference signal is sound.
+Simply adding legal preference data does not consistently improve grounded evaluation. Naturally generated preference pairs can contain systematic response-length asymmetries, which can confound the contextual preference the model is intended to learn. **Length-balanced augmentation** reduces these asymmetries and improves grounded legal evaluation, with the strongest results coming from combining length-balanced legal and general contextual preference data.
 
 <!-- slot: finding-2b-caption -->
-LegalRewardBench, per-dimension accuracy for Ministral-8B. DPO refinement on CJB alone (blue) transfers strongly to LRB; naively combining CJB and LRB (pink) is limited by length artefacts in the legal preference data; length-balanced augmentation (gold) substantially improves performance.
+**LEGALREWARDBENCH performance for Ministral-8B.** DPO refinement on CJB improves performance on LRB, while combining CJB with the original LRB preference data is limited by response-length asymmetries. **Length-balanced augmentation produces the strongest performance across evaluation dimensions.** Legend: {{#888888|Baseline}}, {{#4472C4|CJB-only}}, {{#B4A7D6|CJB+LRB}}, {{#D4A017|CJB+LRB+Length Augmentation}}.
 
-<!-- slot: finding-2b-image -->
-![Radar chart comparing four Ministral-8B training conditions on LegalRewardBench (overall accuracy, refusal answerable/unanswerable, completeness, correctness, faithfulness): Baseline (grey), CJB-only DPO (blue), CJB+LRB (pink), and CJB+LRB with length-balanced augmentation (gold). The length-balanced-augmentation condition forms the largest polygon on every dimension, especially refusal.](static/images/figure-lrb-spider.png)
+<!-- slot: finding-2b-image-light -->
+![Radar chart comparing four Ministral-8B training conditions on LegalRewardBench (overall accuracy, refusal answerable/unanswerable, completeness, correctness, faithfulness): Baseline (grey), CJB-only DPO (blue), CJB+LRB (light purple), and CJB+LRB with length-balanced augmentation (gold). The length-balanced-augmentation condition forms the largest or joint-largest polygon on most dimensions, while the baseline collapses sharply on faithfulness.](static/images/spider_lrbv2_n4.svg)
+width: 75%
+
+<!-- slot: finding-2b-image-dark -->
+![Radar chart comparing four Ministral-8B training conditions on LegalRewardBench (overall accuracy, refusal answerable/unanswerable, completeness, correctness, faithfulness): Baseline (grey), CJB-only DPO (blue), CJB+LRB (light purple), and CJB+LRB with length-balanced augmentation (gold). The length-balanced-augmentation condition forms the largest or joint-largest polygon on most dimensions, while the baseline collapses sharply on faithfulness.](static/images/spider_lrbv2_n4_dark.svg)
 width: 75%
 
 <!-- slot: finding-2b-body -->
-But the underlying signal isn't always sound: simply combining CJB with LRB's original pairs doesn't reliably help further, despite training on more data. Inspection revealed systematic response-length asymmetries in refusal pairs — abstentions are much shorter than substantive answers — and under sequence log-probability scoring, a reward model can **reward-hack** this shortcut, learning to prefer shorter responses rather than genuinely grounded ones. A length-balanced augmentation strategy that rewrites refusal and negative responses to better match preferred-response length closes this gap: combined with CJB, it takes Ministral-8B to **84.9%** overall accuracy, a **+25.6pp** improvement over baseline, confirming that DPO's gains were being masked by an exploitable artefact rather than a ceiling on what contextual alignment can do.
+The key issue is not simply how much preference data is used, but how that data is constructed. Naturally generated pairs can contain response-length asymmetries: abstentions are often shorter than substantive answers, while complete responses may be longer than incomplete ones. Under sequence scoring, these differences can "reward hack" or confound the intended preference. **Length-balanced augmentation reduces this confound, helping the evaluation better reflect grounding rather than response length.**
 
 <!-- slot: finding-3-title -->
 ### Cross-Jurisdiction Generalisation
 
 <!-- slot: finding-3-body -->
-We test whether reward models trained primarily on Victorian criminal law generalise to two US legal reasoning benchmarks from the Stanford RegLab suite: **Bar Exam QA** (Multistate Bar Examination questions over US caselaw) and **Housing Statute QA** (yes/no questions over US state housing statutes) — both substantially different from the training distribution. Despite this domain shift, DPO-refined Ministral-8B improves on both: **+16.2pp** on Housing Statute QA (54.2% → 70.4%), comparable to its in-domain CJB gains, and a smaller but positive +4.3pp on Bar Exam QA. Gains don't scale uniformly with model size — refined Ministral-8B substantially outperforms larger Qwen3.5 models on Housing Statute QA — indicating that contextual alignment drives grounded evaluation more than parameter count alone.
+We test whether contextual grounding learned primarily from Victorian criminal law transfers to two external US legal benchmarks: **Housing Statute QA**, grounded in US state housing statutes, and **Bar Exam QA**, grounded in US caselaw. Transfer is positive but uneven. For Ministral-8B, contextual refinement improves Housing Statute QA from **54.2% to 70.4%**, while Bar Exam QA improves from **56.4% to 60.7%**. The stronger result on the statute-grounded task, alongside more limited gains on Bar Exam QA and across other models, provides evidence that **contextual grounding can transfer beyond the source jurisdiction**, while suggesting that it may transfer more readily than jurisdiction-specific legal reasoning.
 
 <!-- section: beyond -->
 
@@ -201,11 +210,13 @@ We test whether reward models trained primarily on Victorian criminal law genera
 
 <!-- slot: implications-list -->
 
-**Groundedness looks like a transferable behaviour, not just memorised legal knowledge.** Contextual preference optimisation improves reliability under noisy and insufficient retrieval across both general (CJB) and legal (LRB) settings, and the cross-jurisdiction results suggest this holds even outside the training domain — relevant wherever reliable abstention matters more than a confident but unsupported answer.
+**Contextual grounding appears to be a transferable behaviour.** Improvements across general and legal settings, together with cross-jurisd iction results, provide evidence that contextual grounding can extend beyond the source domain. The stronger transfer on statute-grounded tasks suggests that grounding may transfer more readily than jurisdiction-specific legal reasoning.
 
-**Evaluation design can obscure real progress.** Response-length asymmetries in refusal data distorted sequence-log-probability scoring badly enough to mask genuine gains in grounded behaviour; length-balanced augmentation recovered them. Some of the field's apparent limitations in legal reward modelling may be artefacts of benchmark construction rather than an absence of learnable signal.
+**Preference-data construction is part of the modelling problem.** Naturally generated preference pairs can contain structural artefacts, such as response-length asymmetries, that confound the behaviours reward models are intended to learn and evaluate. Preference-data construction and reward scoring therefore need to be considered alongside model training itself.
 
-**Trustworthy legal AI may not require frontier-scale systems.** The strongest results here come from targeted contextual alignment of relatively small open-weight models (0.5B–9B), not larger general-purpose ones — suggesting a practical, reproducible path for grounded legal evaluation without frontier-scale compute.
+**Legal-expert validation is an important next step.** Agreement across multiple LLM judges provides evidence that preference construction is robust across annotators, but it does not replace direct validation by legal experts. Future work should bring lawyers into the validation loop to assess a representative subset of responses and preferences.
+
+**Better reward evaluation is not yet better generation.** Our experiments test whether reward models prefer grounded responses over plausible but unsupported alternatives, rather than whether the refined models themselves generate better legal answers. The next step is to test whether these improvements translate into grounded generation in end-to-end legal RAG systems.
 
 <!-- section: cite -->
 
@@ -213,7 +224,7 @@ We test whether reward models trained primarily on Victorian criminal law genera
 ## Citation (BibTeX)
 
 <!-- slot: bibtex-note -->
-An earlier version of this work was presented at the AI for Law Workshop @ ICML 2026
+An earlier version of this work was presented at [ICML2026 AI4Law Workshop](https://sites.google.com/view/ai4law-icml2026)
 
 <!-- slot: footer-note -->
 Build your own pretty project pages 💅 [**paper-page**](https://github.com/FJFehr/paper-page) and gorgeous GIFs 🎬 [**gifit2me**](https://github.com/FJFehr/gifit2me).
