@@ -18,6 +18,15 @@ code: https://github.com/oxai/legal-reward-bench
 # From the paper's LaTeX "Benchmark" badge.
 dataset: https://huggingface.co/datasets/riltonfranzone/legal-reward-bench
 
+# ICML 2026 AI4Law Workshop -- confirms the paper was presented there.
+# Rendered as the leftmost resource button (ICML logo + visible "Workshop"
+# label, unlike the icon-only arXiv/Code/Dataset buttons after it); `title`
+# is a hover tooltip spelling out the venue in full.
+venue:
+  label: "Workshop"
+  title: "Presented at ICML 2026 AI4Law Workshop"
+  url: https://icml.cc/virtual/2026/80644
+
 # Open Graph / Twitter card preview image path (1200x630). NOT auto-applied
 # to the <meta property="og:image">/<meta name="twitter:image"> tags in
 # index.html's <head> -- crawlers need those static, so keep both in sync

@@ -103,7 +103,7 @@ index.html's Key Takeaways section for the takeaway-1 anchor's href.
 <!-- section: overview -->
 
 <!-- slot: tldr -->
-**TL;DR.** Legal AI should answer from the evidence it is given and abstain when that evidence is insufficient. We introduce **LEGALREWARDBENCH** and a general framework for turning legal question answering data into contextual preference pairs. We find that **preference-data construction matters**, with length balancing improving grounded legal evaluation and evidence that **contextual grounding can transfer across legal jurisdictions**.
+**TL;DR.** Legal AI should answer from the evidence it is given and abstain when that evidence is insufficient. We introduce **LEGALREWARDBENCH** and a framework for turning legal question answering data into contextual preference pairs. We find that **preference-data construction matters**, with length balancing improving grounded legal evaluation and evidence that **contextual grounding can transfer across legal jurisdictions**.
 
 <!-- slot: problem-title -->
 ## From Legal QA to Preference Pairs
@@ -221,7 +221,7 @@ We test whether contextual grounding learned primarily from Victorian criminal l
 ## Citation (BibTeX)
 
 <!-- slot: bibtex-note -->
-An earlier version of this work was presented at [ICML2026 AI4Law Workshop](https://sites.google.com/view/ai4law-icml2026)
+An earlier version of this work was presented at the [ICML 2026 AI4Law Workshop](https://icml.cc/virtual/2026/80644). For further details, visit the [ICML page](https://icml.cc/virtual/2026/80644).
 
 <!-- slot: footer-note -->
 Build your own pretty project pages 💅 [**paper-page**](https://github.com/FJFehr/paper-page) and gorgeous GIFs 🎬 [**gifit2me**](https://github.com/FJFehr/gifit2me).

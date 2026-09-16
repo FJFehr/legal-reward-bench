@@ -167,6 +167,15 @@
     }
   }
 
+  // The ICML mark is a fixed-colour silhouette (not recolourable via
+  // currentColor like GitHub's), so -- like the OxAI logo in
+  // .affiliation-block -- it ships as two pre-rendered variants swapped by
+  // theme via .theme-only-light/.theme-only-dark, rather than one <img>.
+  // Source: static/logos/ICML-logo-icon(.svg / _dark.svg).
+  const ICON_ICML =
+    '<img class="btn-icon theme-only-light" src="static/logos/ICML-logo-icon.svg" alt="">' +
+    '<img class="btn-icon theme-only-dark" src="static/logos/ICML-logo-icon_dark.svg" alt="">';
+
   // Inline so it can be recoloured with `fill="currentColor"` and follow
   // the button's text colour in both themes -- an <img> couldn't do that.
   // Source: static/logos/github.svg (svgrepo.com, generic GitHub mark).
@@ -185,9 +194,10 @@
     '<img class="btn-icon btn-icon-arxiv" src="static/logos/arxiv.svg" alt="">';
 
   /* ---------------------------------------------------------------------
-   * Resource buttons -- arXiv / Code / Hugging Face / Cite. All three
-   * platform buttons show only their logo (no visible caption -- the
-   * label is kept for screen readers via .visually-hidden). Without a
+   * Resource buttons -- Workshop (venue) / arXiv / Code / Hugging Face /
+   * Cite. The three platform buttons show only their logo (no visible
+   * caption -- the label is kept for screen readers via .visually-hidden);
+   * Workshop and Cite show their icon/text visibly instead. Without a
    * URL, a button renders as an inert, non-clickable span rather than a
    * fake link; add the URL to links.yaml and it becomes a real link
    * automatically, same markup either way.
@@ -204,6 +214,7 @@
         const a = document.createElement("a");
         a.href = url;
         a.className = "btn";
+        if (opts.title) a.title = opts.title;
         if (!opts.internal) {
           a.target = "_blank";
           a.rel = "noopener noreferrer";
@@ -218,6 +229,13 @@
       return span;
     }
 
+    const venue = links.venue || {};
+    container.appendChild(
+      makeButton(venue.label || "Workshop", venue.url, {
+        icon: ICON_ICML,
+        title: venue.title,
+      })
+    );
     container.appendChild(
       makeButton("arXiv", links.arxiv, {
         icon: ICON_ARXIV,
@@ -415,7 +433,7 @@
   }
 
   // authors.yaml -> author list, affiliation, correspondence.
-  // links.yaml -> resource buttons (arXiv / Code / Dataset).
+  // links.yaml -> resource buttons (Workshop / arXiv / Code / Dataset / Cite).
   function loadAuthorsAndLinks() {
     loadYaml("authors.yaml").then(function (data) {
       renderAuthors(data.authors || []);
