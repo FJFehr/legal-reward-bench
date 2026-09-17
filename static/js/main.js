@@ -192,13 +192,20 @@
   // class. Source: static/logos/arxiv.svg.
   const ICON_ARXIV =
     '<img class="btn-icon btn-icon-arxiv" src="static/logos/arxiv.svg" alt="">';
+  // Hack the Law's mark is a self-contained gradient orb (no text, no
+  // background assumptions), so unlike ICML it needs no separate light/
+  // dark variant -- one <img> reads fine on both. Source: Hack the Law
+  // Cambridge's own site favicon, static/logos/hack-the-law-icon.svg
+  // (https://hackthelaw-cambridge.com/).
+  const ICON_HACK_THE_LAW =
+    '<img class="btn-icon" src="static/logos/hack-the-law-icon.svg" alt="">';
 
   /* ---------------------------------------------------------------------
    * Resource buttons -- Workshop (venue) / Talk / arXiv / Code / Hugging
    * Face / Cite. The three platform buttons show only their logo (no
    * visible caption -- the label is kept for screen readers via
    * .visually-hidden); Workshop, Talk, and Cite show their icon/text
-   * visibly instead (Talk has no logo, so it's text-only). Without a
+   * visibly instead. Without a
    * URL, a button renders as an inert, non-clickable span rather than a
    * fake link; add the URL to links.yaml and it becomes a real link
    * automatically, same markup either way.
@@ -240,6 +247,7 @@
     const talk = links.talk || {};
     container.appendChild(
       makeButton(talk.label || "Talk", talk.url, {
+        icon: ICON_HACK_THE_LAW,
         title: talk.title,
       })
     );
