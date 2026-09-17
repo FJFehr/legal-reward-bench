@@ -194,10 +194,11 @@
     '<img class="btn-icon btn-icon-arxiv" src="static/logos/arxiv.svg" alt="">';
 
   /* ---------------------------------------------------------------------
-   * Resource buttons -- Workshop (venue) / arXiv / Code / Hugging Face /
-   * Cite. The three platform buttons show only their logo (no visible
-   * caption -- the label is kept for screen readers via .visually-hidden);
-   * Workshop and Cite show their icon/text visibly instead. Without a
+   * Resource buttons -- Workshop (venue) / Talk / arXiv / Code / Hugging
+   * Face / Cite. The three platform buttons show only their logo (no
+   * visible caption -- the label is kept for screen readers via
+   * .visually-hidden); Workshop, Talk, and Cite show their icon/text
+   * visibly instead (Talk has no logo, so it's text-only). Without a
    * URL, a button renders as an inert, non-clickable span rather than a
    * fake link; add the URL to links.yaml and it becomes a real link
    * automatically, same markup either way.
@@ -234,6 +235,12 @@
       makeButton(venue.label || "Workshop", venue.url, {
         icon: ICON_ICML,
         title: venue.title,
+      })
+    );
+    const talk = links.talk || {};
+    container.appendChild(
+      makeButton(talk.label || "Talk", talk.url, {
+        title: talk.title,
       })
     );
     container.appendChild(

@@ -221,7 +221,7 @@ We test whether contextual grounding learned primarily from Victorian criminal l
 ## Citation (BibTeX)
 
 <!-- slot: bibtex-note -->
-An earlier version of this work was presented at the [ICML 2026 AI4Law Workshop](https://icml.cc/virtual/2026/80644). For further details, visit the [ICML page](https://icml.cc/virtual/2026/80644).
+An earlier version of this work was presented at the [ICML 2026 AI4Law Workshop](https://icml.cc/virtual/2026/80644), and as an invited talk, ["Towards Grounded Legal AI"](https://hackthelaw.notion.site/Towards-Grounded-Legal-AI-363c01c241b280b1ad10c566bb1e094e), at Hack the Law, Cambridge.
 
 <!-- slot: footer-note -->
 Build your own pretty project pages 💅 [**paper-page**](https://github.com/FJFehr/paper-page) and gorgeous GIFs 🎬 [**gifit2me**](https://github.com/FJFehr/gifit2me).
